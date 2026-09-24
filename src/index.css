@@ -1,0 +1,169 @@
+/* ── 1. Google Fonts — MUST be first ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── 2. Tailwind directives ───────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── 3. Base styles ───────────────────────────────────────────────────────── */
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #F5F6FA;
+    color: #111E4F;
+  }
+
+  .dark body {
+    background-color: #0C1535;
+    color: #DDE3F5;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+    font-weight: 700;
+    color: #1A2B6B;
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4 {
+    color: #DDE3F5;
+  }
+}
+
+/* ── 4. Component classes ─────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Buttons ─────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           bg-[#D0021B] hover:bg-[#B00218]
+           text-white font-bold text-sm
+           shadow-[0_2px_8px_rgba(208,2,27,0.25)]
+           hover:shadow-[0_4px_12px_rgba(208,2,27,0.35)]
+           hover:-translate-y-0.5 active:translate-y-0
+           transition-all duration-150;
+  }
+
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           bg-[#1A2B6B] hover:bg-[#111E4F]
+           text-white font-bold text-sm
+           shadow-[0_2px_8px_rgba(26,43,107,0.25)]
+           hover:shadow-[0_4px_12px_rgba(26,43,107,0.35)]
+           hover:-translate-y-0.5 active:translate-y-0
+           transition-all duration-150;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           border border-[#C5CCE8] dark:border-[#2a3460]
+           bg-white dark:bg-[#13192e]
+           text-[#1A2B6B] dark:text-[#8899d4]
+           hover:bg-[#E8ECF8] dark:hover:bg-[#1c2340]
+           hover:border-[#1A2B6B] dark:hover:border-[#4a5a9a]
+           font-semibold text-sm
+           transition-all duration-150;
+  }
+
+  .btn-outline-red {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-xl
+           border border-[#D0021B]
+           text-[#D0021B] hover:bg-[#FDE8EB]
+           font-semibold text-sm
+           transition-all duration-150;
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white dark:bg-[#13192e]
+           rounded-2xl
+           border border-[#C5CCE8] dark:border-[#2a3460]
+           shadow-[0_1px_3px_rgba(26,43,107,0.08)];
+  }
+
+  .card-hover {
+    @apply card
+           hover:shadow-[0_4px_16px_rgba(26,43,107,0.12)]
+           hover:-translate-y-0.5
+           transition-all duration-200;
+  }
+
+  /* ── Inputs ──────────────────────────────────────────────────────────── */
+  .input {
+    @apply w-full px-4 py-2.5 rounded-xl
+           border border-[#C5CCE8] dark:border-[#2a3460]
+           bg-[#F5F6FA] dark:bg-[#1c2340]
+           text-[#111E4F] dark:text-[#dde3f5]
+           text-sm
+           focus:outline-none
+           focus:border-[#1A2B6B] focus:ring-2 focus:ring-[#1A2B6B]/15
+           dark:focus:border-[#4a5a9a]
+           transition-all
+           placeholder:text-[#9AA3BF];
+  }
+
+  /* ── Typography ──────────────────────────────────────────────────────── */
+  .eyebrow {
+    @apply block text-xs font-bold uppercase tracking-[0.12em] text-[#D0021B] mb-1;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold text-[#1A2B6B] dark:text-[#DDE3F5] leading-tight;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .section-subtitle {
+    @apply mt-3 text-[#6B7280] dark:text-[#8899d4] text-base leading-relaxed;
+  }
+
+  /* ── Badges ──────────────────────────────────────────────────────────── */
+  .badge-red {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold
+           bg-[#FDE8EB] text-[#D0021B]
+           dark:bg-[#3d0008] dark:text-[#f87171];
+  }
+
+  .badge-navy {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold
+           bg-[#E8ECF8] text-[#1A2B6B]
+           dark:bg-[#1c2340] dark:text-[#8899d4];
+  }
+
+  .badge-green {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold
+           bg-emerald-50 text-emerald-700
+           dark:bg-emerald-900/30 dark:text-emerald-400;
+  }
+
+  .badge-gray {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold
+           bg-[#F5F6FA] text-[#6B7280]
+           dark:bg-[#1c2340] dark:text-[#8899d4]
+           border border-[#C5CCE8] dark:border-[#2a3460];
+  }
+
+  /* ── Dividers ────────────────────────────────────────────────────────── */
+  .yef-divider {
+    @apply border-t border-[#C5CCE8] dark:border-[#2a3460];
+  }
+
+  /* ── Gradient Backgrounds ────────────────────────────────────────────── */
+  .yef-hero-gradient {
+    background: linear-gradient(135deg, #1A2B6B 0%, #111E4F 60%, #0C1535 100%);
+  }
+
+  .yef-card-gradient {
+    background: linear-gradient(135deg, #E8ECF8 0%, #FDE8EB 100%);
+  }
+
+  .dark .yef-card-gradient {
+    background: linear-gradient(135deg, #13192e 0%, #1f0a10 100%);
+  }
+}

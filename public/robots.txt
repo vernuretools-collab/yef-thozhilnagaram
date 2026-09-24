@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thozhilnagaram.yef-network.com/sitemap.xml
