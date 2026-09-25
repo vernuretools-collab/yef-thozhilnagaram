@@ -8,8 +8,8 @@ import {
   MapPin,
   Quote,
   Sparkles,
-  Languages,
-  Briefcase,
+  Factory,
+  MessagesSquare,
   TrendingUp,
   BookOpenText,
   Smartphone,
@@ -65,22 +65,22 @@ const upcomingEvents = [
 
 const forumPosts = [
   {
-    category: 'CAREER GROWTH',
-    title: 'Salary negotiation for Tamil professionals: a respectful, practical guide',
-    body: 'Navigating salary conversations in global workplaces while staying true to who you are. Real strategies, real outcomes — in Tamil and English.',
-    icon: Briefcase,
-  },
-  {
-    category: 'COMMUNITY STORY',
-    title: "From Jaffna to Frankfurt: one economist's journey across three continents",
-    body: 'A Sri Lankan Tamil economist reflects on building a career in Germany — the language barriers, the small victories, and what stayed constant.',
-    icon: Globe,
-  },
-  {
     category: 'INDUSTRY INSIGHTS',
-    title: 'Tamil fintech founders are reshaping digital banking across Southeast Asia',
-    body: "From Kuala Lumpur to Singapore, Tamil-led fintech ventures are quietly building the region's financial infrastructure.",
+    title: "What Is Changing Inside Tamil Nadu's Manufacturing Sector",
+    body: 'Trends, challenges, technologies, and opportunities shaping the way manufacturing businesses operate.',
     icon: TrendingUp,
+  },
+  {
+    category: 'MANUFACTURING NETWORK',
+    title: 'The People Behind the Industrial Ecosystem',
+    body: 'A closer look at manufacturers, suppliers, service providers, and other businesses that keep the industrial network moving.',
+    icon: Factory,
+  },
+  {
+    category: 'CHAPTER CONVERSATIONS',
+    title: 'Inside Thozhil Nagaram, Ambattur',
+    body: 'Discussions around manufacturing operations, industrial requirements, business opportunities, and the connections that matter.',
+    icon: MessagesSquare,
   },
 ]
 
@@ -266,33 +266,30 @@ export default function Home() {
               className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-[1.1] text-[#1A2B6B] dark:text-[#DDE3F5]"
               style={{ fontFamily: "'Plus Jakarta Sans', 'DM Sans', sans-serif" }}
             >
-              Where Tamil economic voices{' '}
+              Where Tamil manufacturing voices{' '}
               <span className="relative inline-block">
-                <span className="text-[#D0021B]">shape the world.</span>
+                <span className="text-[#D0021B]">come together.</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-[#D0021B] to-[#D0021B]/20 rounded-full" />
               </span>
             </h1>
 
             <p className="mt-6 text-gray-900 dark:text-[#8899d4] text-base font-bold sm:text-lg leading-relaxed max-w-lg">
-              A borderless community of Tamil professionals building influence across business,
-              economics, trade, and public policy, in the language of our roots.
+              Manufacturing is not just about production. It is how we build, create, and contribute
+              to the economy.
             </p>
 
             <div className="mt-8 space-y-3 max-w-xl">
               <div className="flex items-start gap-3 text-sm text-gray-900 dark:text-[#DDE3F5]">
-                <Languages size={18} className="text-[#D0021B] mt-0.5" />
-                <span>Tamil is not just a language. It is how we think, build, and lead.</span>
-              </div>
-              <div className="flex items-start gap-3 text-sm text-gray-900 dark:text-[#DDE3F5]">
-                <Users size={18} className="text-[#D0021B] mt-0.5" />
+                <Users size={18} className="text-[#D0021B] mt-0.5 shrink-0" />
                 <span>
-                  Join a global forum where members share experience, opportunity, and solidarity.
+                  Join a community where manufacturing industrialists share experience, explore
+                  opportunities, and build meaningful connections.
                 </span>
               </div>
               <div className="flex items-start gap-3 text-sm text-gray-900 dark:text-[#DDE3F5]">
-                <Sparkles size={18} className="text-[#D0021B] mt-0.5" />
+                <Sparkles size={18} className="text-[#D0021B] mt-0.5 shrink-0" />
                 <span>
-                  "யாம் பெற்ற இன்பம் பெறுக இவ்வையகம்" — the spirit that drives our community.
+                  Thozhil Nagaram - where industry, enterprise, and people come together.
                 </span>
               </div>
             </div>
@@ -302,26 +299,26 @@ export default function Home() {
                 to="/visit-meeting"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#D0021B] hover:bg-[#B00218] text-white font-bold text-sm transition-all shadow-[0_2px_12px_rgba(208,2,27,0.30)] hover:shadow-[0_4px_16px_rgba(208,2,27,0.40)] hover:-translate-y-0.5"
               >
-                Join the forum — grow <ArrowRight size={15} />
+                Join Thozhil Nagaram <ArrowRight size={15} />
               </Link>
               <Link
-                to="/members"
+                to="/chapters"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#1A2B6B] dark:border-[#4a5a9a] text-[#1A2B6B] dark:text-[#8899d4] font-bold text-sm hover:bg-[#1A2B6B] hover:text-white dark:hover:bg-[#1A2B6B] dark:hover:text-white transition-all"
               >
-               See  Members   <ArrowRight size={15} />
+                Explore YEF Chapters <ArrowRight size={15} />
               </Link>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mt-4 pt-6 border-t border-[#E8ECF8] dark:border-[#2a3460]">
+              <div className="flex items-center bg-[#1A2B6B] px-4 py-2 rounded-full">
+                <span className="text-xs text-white font-medium">Manufacturing Industrialists</span>
+              </div>
               <div className="flex items-center gap-1.5 bg-[#1A2B6B] px-4 py-2 rounded-full">
                 <MapPin size={13} className="text-white" />
-                <span className="text-xs text-white font-medium">Global Tamil community</span>
+                <span className="text-xs text-white font-medium">Ambattur Chapter</span>
               </div>
               <div className="flex items-center bg-[#1A2B6B] px-4 py-2 rounded-full">
-                <span className="text-xs text-white font-medium">Tamil</span>
-              </div>
-              <div className="flex items-center bg-[#1A2B6B] px-4 py-2 rounded-full">
-                <span className="text-xs text-white font-medium">Free membership</span>
+                <span className="text-xs text-white font-medium">Industry-to-Industry Connections</span>
               </div>
             </div>
           </div>
@@ -551,7 +548,7 @@ export default function Home() {
               Latest from the forum
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#1A2B6B] dark:text-[#DDE3F5]">
-              Conversations that matter.
+              Conversations from the manufacturing floor.
             </h2>
           </div>
 
@@ -586,23 +583,23 @@ export default function Home() {
           <div className="absolute -bottom-10 -right-10 w-56 h-56 rounded-full bg-white/5 pointer-events-none" />
           <div className="relative">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[#FFB6C1] text-xs font-bold uppercase tracking-widest mb-4">
-              யாம் — WE
+              Thozhil Nagaram
             </span>
             <h2
               className="text-3xl sm:text-4xl font-bold leading-tight text-white"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              One language. Thousands of careers.
+              Built around manufacturing.
             </h2>
             <p className="mt-2 text-[#8899d4] max-w-lg">
-              Join the community that sees language as your greatest professional asset.
+              A community for people who are part of manufacturing and those looking to connect with it.
             </p>
           </div>
           <Link
             to="/visit-meeting"
             className="relative shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#D0021B] hover:bg-[#B00218] text-white font-bold transition-all shadow-[0_4px_16px_rgba(208,2,27,0.40)] hover:shadow-[0_6px_20px_rgba(208,2,27,0.50)] hover:-translate-y-0.5"
           >
-            Join the forum — grow <ArrowRight size={16} />
+            Join Thozhil Nagaram - Connect <ArrowRight size={16} />
           </Link>
         </div>
       </section>

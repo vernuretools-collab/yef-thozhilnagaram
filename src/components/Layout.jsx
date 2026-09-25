@@ -195,21 +195,21 @@ export default function Layout() {
                 <div className="w-20 sm:w-24 shrink-0">
                   <img
                     src={logo}
-                    alt="Yaam Economic Forum"
+                    alt="YEF Thozhil Nagaram"
                     className="w-full h-auto object-contain"
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-bold text-sm text-[#1A2B6B] dark:text-[#DDE3F5] truncate">
-                    Yaam Economic Forum
+                  <p className="font-bold text-sm text-[#1A2B6B] dark:text-[#DDE3F5]">
+                    YEF Thozhil Nagaram
                   </p>
-                  <p className="text-[10px] text-[#D0021B] font-semibold uppercase tracking-wide truncate">
-                    Connecting Global Economy
+                  <p className="text-[10px] text-[#D0021B] font-semibold uppercase tracking-wide">
+                    Connecting Manufacturing Businesses
                   </p>
                 </div>
               </div>
               <p className="text-sm text-gray-700 font-bold dark:text-[#8899d4] leading-relaxed">
-                Building business through trusted referrals and meaningful economic connections across Tamil Nadu and beyond.
+                Bringing manufacturing industrialists and businesses seeking manufacturing connections together in Ambattur and beyond.
               </p>
             </div>
 

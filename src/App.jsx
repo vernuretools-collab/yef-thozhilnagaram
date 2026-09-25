@@ -13,8 +13,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        {/* <Route path="chapters" element={<Chapters />} />
-        <Route path="chapters/:slug" element={<ChapterDetail />} /> */}
+        <Route path="chapters" element={<Chapters />} />
+        <Route path="chapters/:slug" element={<ChapterDetail />} />
         <Route path="members" element={<Members />} />
         <Route path="/members/:uid" element={<MemberProfile />} />
         <Route path="about" element={<Navigate to="/" replace />} />
