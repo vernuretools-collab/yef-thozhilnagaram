@@ -405,7 +405,7 @@ export default function Home() {
 
           <div className="relative flex items-center justify-center mb-10">
             <div className="absolute inset-x-0 h-px bg-[#E0E4F0] dark:bg-[#2a3460]" />
-            <span className="relative  px-4 text-xl font-bold text-gray-900 dark:text-[#4a5a9a] tracking-wide">
+            <span className="relative bg-[#E8ECF8] dark:bg-[#0f1628] px-4 text-xl font-bold text-gray-900 dark:text-[#4a5a9a] tracking-wide">
               Leadership Committee
             </span>
           </div>
