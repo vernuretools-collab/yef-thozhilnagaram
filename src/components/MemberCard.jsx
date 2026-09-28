@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Globe, Mail, Smartphone } from 'lucide-react'
 import Badge from './Badge'
+import { memberProfilePath } from '../utils/memberUrl'
 
 const LinkedinIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -56,7 +57,7 @@ export default function MemberCard({ member }) {
   const whatsappUrl = cleanPhone ? `https://wa.me/${cleanPhone}` : ''
 
   function openProfile() {
-    if (profileId) navigate(`/members/${profileId}`)
+    if (profileId) navigate(memberProfilePath(member))
   }
 
   return (

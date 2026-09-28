@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { db, storage, auth } from '../data/firebase'
 import { cropToFace } from '../utils/cropToFace'
-import { chapters, CHAPTER_SLUG } from '../data/chapters'
+import { chapters, CHAPTER_SLUG, belongsToChapter } from '../data/chapters'
 import {
   ArrowLeft,
   Globe,
@@ -25,7 +25,8 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import Badge from '../components/Badge'
-import { SITE_ORIGIN, setSeo, setJsonLd, clearJsonLd } from '../utils/seo'
+import { siteOrigin, absoluteUrl, setSeo, setJsonLd, clearJsonLd } from '../utils/seo'
+import { memberIdFromParam, memberProfilePath } from '../utils/memberUrl'
 
 
 const LinkedinIcon = () => (
@@ -120,9 +121,12 @@ const SideCard = ({ children, tint }) => (
 
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function MemberProfile() {
-  const { uid } = useParams()
+  const { uid: memberParam } = useParams()
+  const memberId = memberIdFromParam(memberParam)
+  const navigate = useNavigate()
+  const location = useLocation()
   const currentUser = auth.currentUser
-  const isOwner = currentUser?.uid === uid
+  const isOwner = currentUser?.uid === memberId
 
   const [member, setMember]           = useState(null)
   const [loading, setLoading]         = useState(true)
@@ -135,7 +139,7 @@ export default function MemberProfile() {
   const fileInputRef = useRef(null)
 
   useEffect(() => {
-    if (!uid) { setError('Invalid member link.'); setLoading(false); return }
+    if (!memberId) { setError('Invalid member link.'); setLoading(false); return }
 
     const load = async () => {
       const timeout = setTimeout(() => {
@@ -144,7 +148,7 @@ export default function MemberProfile() {
       }, 8000)
 
       try {
-        const snap = await getDoc(doc(db, 'users', uid))
+        const snap = await getDoc(doc(db, 'users', memberId))
         clearTimeout(timeout)
         if (!snap.exists()) {
           setError('Member not found.')
@@ -152,7 +156,7 @@ export default function MemberProfile() {
           setError('This profile is not publicly accessible.')
         } else if (snap.data().status !== 'active') {
           setError('This profile is not publicly accessible.')
-        } else if (snap.data().chapterSlug !== CHAPTER_SLUG) {
+        } else if (!belongsToChapter(snap.data().chapterSlug)) {
           setError('Member not found.')
         } else {
           const data = { uid: snap.id, ...snap.data() }
@@ -170,7 +174,7 @@ export default function MemberProfile() {
     }
 
     load()
-  }, [uid])
+  }, [memberId])
 
   useEffect(() => {
     if (!member) return
@@ -179,8 +183,13 @@ export default function MemberProfile() {
     const extras = [member.industry, member.business].filter(Boolean)
     const extraText = extras.length ? ` ${extras.join(', ')}.` : ''
     const description = `${name} is a member of YEF Thozhilnagaram (Yaam Economic Forum).${extraText}`
-    const path = `/members/${member.uid || uid}`
+    const path = memberProfilePath(member)
     const image = member.photoURL || photoURL || undefined
+    const origin = siteOrigin()
+
+    if (location.pathname !== path) {
+      navigate(path, { replace: true })
+    }
 
     setSeo({
       title: `${name} | YEF Thozhilnagaram | Yaam Economic Forum`,
@@ -196,17 +205,17 @@ export default function MemberProfile() {
       name,
       jobTitle: member.industry || undefined,
       image: image || undefined,
-      url: `${SITE_ORIGIN}${path}`,
+      url: absoluteUrl(path),
       worksFor: {
         '@type': 'Organization',
         name: 'Yaam Economic Forum',
         alternateName: 'YEF',
-        url: SITE_ORIGIN,
+        url: origin,
       },
     })
 
     return () => clearJsonLd()
-  }, [member, photoURL, uid])
+  }, [member, photoURL, location.pathname, navigate])
 
   const handlePhotoChange = async e => {
     const file = e.target.files?.[0]
@@ -225,10 +234,10 @@ export default function MemberProfile() {
         avatarBlob = file
       }
 
-      const storageRef = ref(storage, `profiles/${uid}/avatar`)
+      const storageRef = ref(storage, `profiles/${memberId}/avatar`)
       await uploadBytes(storageRef, avatarBlob, { contentType: 'image/jpeg' })
       const url = await getDownloadURL(storageRef)
-      await updateDoc(doc(db, 'users', uid), { photoURL: url })
+      await updateDoc(doc(db, 'users', memberId), { photoURL: url })
       setImgLoaded(false)
       setPhotoURL(`${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`)
     } catch (err) {
@@ -293,6 +302,7 @@ export default function MemberProfile() {
   const tags        = Array.isArray(member.tags)    ? member.tags    : []
   const gallery     = Array.isArray(member.gallery) ? member.gallery : []
   const chapter     = chapters.find(c => c.slug === member.chapterSlug)
+    || (belongsToChapter(member.chapterSlug) ? chapters.find(c => c.slug === CHAPTER_SLUG) : undefined)
   const chapterName = chapter?.name || member.chapterSlug || 'Our Chapter'
 
   const gains = {
@@ -501,7 +511,7 @@ export default function MemberProfile() {
             <div className="flex flex-wrap items-center gap-2.5 mt-7 pt-5 border-t border-white/10">
               {member.chapterSlug && (
                 <Link
-                  to={`/chapters/${member.chapterSlug}`}
+                  to={`/chapters/${chapter?.slug || CHAPTER_SLUG}`}
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.08] hover:bg-white/15 border border-white/12 text-white/75 hover:text-white text-xs font-semibold transition-all"
                 >
                   <MapPin size={11} className="text-[#FF8F9E]" />

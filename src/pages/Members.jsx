@@ -7,7 +7,7 @@ import {
 } from 'lucide-react'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '../data/firebase'
-import { CHAPTER_SLUG } from '../data/chapters'
+import { belongsToChapter } from '../data/chapters'
 import MemberCard from '../components/MemberCard'
 import SectionHeader from '../components/SectionHeader'
 
@@ -71,7 +71,7 @@ export default function Members() {
       snap => {
         const data = snap.docs
           .map(d => ({ uid: d.id, ...d.data() }))
-          .filter(u => u.role === 'member' && u.status === 'active' && u.chapterSlug === CHAPTER_SLUG)
+          .filter(u => u.role === 'member' && u.status === 'active' && belongsToChapter(u.chapterSlug))
         setMembers(data)
         setLoading(false)
         setError('')

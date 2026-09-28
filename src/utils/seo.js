@@ -22,10 +22,18 @@ function upsertCanonical(href) {
   el.setAttribute('href', href)
 }
 
+export function siteOrigin() {
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin
+  }
+  return SITE_ORIGIN
+}
+
 export function absoluteUrl(path = '/') {
-  if (!path) return SITE_ORIGIN
+  const origin = siteOrigin()
+  if (!path) return origin
   if (path.startsWith('http://') || path.startsWith('https://')) return path
-  return `${SITE_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`
+  return `${origin}${path.startsWith('/') ? path : `/${path}`}`
 }
 
 export function setSeo({ title, description, path, image, type = 'profile' } = {}) {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../data/firebase'
-import { chapters } from '../data/chapters'
+import { chapters, belongsToChapter } from '../data/chapters'
 import {
   CalendarDays, Clock3, MapPin, Users,
   ArrowLeft, TrendingUp, Loader2, ShieldCheck
@@ -25,11 +25,14 @@ export default function ChapterDetail() {
       try {
         const q    = query(
           collection(db, 'users'),
-          where('chapterSlug', '==', slug),
           where('role', '==', 'member')
         )
         const snap = await getDocs(q)
-        setMembers(snap.docs.map(d => ({ uid: d.id, ...d.data() })))
+        setMembers(
+          snap.docs
+            .map(d => ({ uid: d.id, ...d.data() }))
+            .filter(m => belongsToChapter(m.chapterSlug) || m.chapterSlug === slug)
+        )
       } catch (err) {
         console.error('Failed to load members:', err)
         setError('Failed to load members.')

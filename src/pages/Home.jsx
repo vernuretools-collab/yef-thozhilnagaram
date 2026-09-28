@@ -17,7 +17,14 @@ import {
 } from 'lucide-react'
 import { db } from '../data/firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { CHAPTER_SLUG } from '../data/chapters'
+import { belongsToChapter } from '../data/chapters'
+import { memberProfilePath } from '../utils/memberUrl'
+import founderImg from '../assets/founder.jpeg'
+import MohamedMeeran from '../assets/MohamedMeeran.jpeg'
+import Balaji from '../assets/balaji.jpeg'
+import elumalai from '../assets/elumalai.jpeg'
+import Rajesh from '../assets/RAJESH.jpeg'
+import vivekImg from '../assets/vivek.jpeg'
 
 
 // ─── Static data ───────────────────────────────────────────────────────────────
@@ -87,10 +94,65 @@ const forumPosts = [
 // ─── Dummy leadership data ────────────────────────────────────────────────────
 
 const DUMMY_LEADERS = [
-  { id: 'l1', roleLabel: 'President', name: 'To be announced' },
-  { id: 'l2', roleLabel: 'Secretary', name: 'To be announced' },
-  { id: 'l3', roleLabel: 'Treasurer', name: 'To be announced' },
-  { id: 'l4', roleLabel: 'Coordinator', name: 'To be announced' },
+  {
+    id: 'l2',
+    roleLabel: 'Founder',
+    name: 'Mr. M.A. Sathasivam',
+    company: 'Babu Services Private Limited',
+    photoURL: founderImg,
+    photoPosition: '50% 18%',
+    phone: '+',
+    email: ' ',
+  },
+  {
+    id: 'l3',
+    roleLabel: 'Co-ordinator',
+    name: 'Mr. S. Mohamed Meeran',
+    company: 'Naresh EXIM',
+    photoURL: MohamedMeeran,
+    photoPosition: '50% 12%',
+    phone: '+',
+    email: ' ',
+  },
+  {
+    id: 'l4',
+    roleLabel: 'Co-ordinator',
+    name: 'Mr.N.Balaji',
+    company: 'Naresh EXIM',
+    photoURL: Balaji,
+    photoPosition: '50% 12%',
+    phone: '+',
+    email: ' ',
+  },
+  {
+    id: 'l1',
+    roleLabel: 'President',
+    name: 'Vivek Jayaraman',
+    photoURL: vivekImg,
+    photoPosition: '50% 18%',
+    phone: '92821 28899',
+    email: 'vivek@thehaloeffectconsulting.com',
+  },
+  {
+    id: 'l5',
+    roleLabel: 'Secretary',
+    name: 'Mr.K.Elumalai',
+    company: 'Raj Solutions Pvt Ltd',
+    photoURL: elumalai,
+    photoPosition: '50% 18%',
+    phone: '+',
+    email: ' ',
+  },
+  {
+    id: 'l6',
+    roleLabel: 'Treasurer',
+    name: 'Mr.A.N.A Rajesh ',
+    company: 'Raj Solutions Pvt Ltd',
+    photoURL: Rajesh,
+    photoPosition: '50% 16%',
+    phone: '+',
+    email: ' ',
+  },
 ]
 
 // ─── Shared avatar ─────────────────────────────────────────────────────────────
@@ -238,7 +300,7 @@ export default function Home() {
         const snap = await getDocs(q)
         const chapterMembers = snap.docs
           .map((doc) => ({ id: doc.id, ...doc.data() }))
-          .filter((member) => member.status === 'active' && member.chapterSlug === CHAPTER_SLUG)
+          .filter((member) => member.status === 'active' && belongsToChapter(member.chapterSlug))
           .slice(0, 6)
         setMembers(chapterMembers)
       } catch (err) {
@@ -301,24 +363,24 @@ export default function Home() {
               >
                 Join Thozhil Nagaram <ArrowRight size={15} />
               </Link>
-              <Link
-                to="/chapters"
+              <a
+                href="https://yef-network.com/chapters"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#1A2B6B] dark:border-[#4a5a9a] text-[#1A2B6B] dark:text-[#8899d4] font-bold text-sm hover:bg-[#1A2B6B] hover:text-white dark:hover:bg-[#1A2B6B] dark:hover:text-white transition-all"
               >
                 Explore YEF Chapters <ArrowRight size={15} />
-              </Link>
+              </a>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 mt-4 pt-6 border-t border-[#E8ECF8] dark:border-[#2a3460]">
-              <div className="flex items-center bg-[#1A2B6B] px-4 py-2 rounded-full">
-                <span className="text-xs text-white font-medium">Manufacturing Industrialists</span>
+            <div className="flex flex-nowrap items-center gap-2 mt-4 pt-6 border-t border-[#E8ECF8] dark:border-[#2a3460]">
+              <div className="flex items-center bg-[#1A2B6B] px-3 py-2 rounded-full shrink-0">
+                <span className="text-[11px] text-white font-medium whitespace-nowrap">Manufacturing Industrialists</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-[#1A2B6B] px-4 py-2 rounded-full">
-                <MapPin size={13} className="text-white" />
-                <span className="text-xs text-white font-medium">Ambattur Chapter</span>
+              <div className="flex items-center gap-1.5 bg-[#1A2B6B] px-3 py-2 rounded-full shrink-0">
+                <MapPin size={12} className="text-white shrink-0" />
+                <span className="text-[11px] text-white font-medium whitespace-nowrap">Ambattur Chapter</span>
               </div>
-              <div className="flex items-center bg-[#1A2B6B] px-4 py-2 rounded-full">
-                <span className="text-xs text-white font-medium">Industry-to-Industry Connections</span>
+              <div className="flex items-center bg-[#1A2B6B] px-3 py-2 rounded-full shrink-0">
+                <span className="text-[11px] text-white font-medium whitespace-nowrap">Industry-to-Industry Connections</span>
               </div>
             </div>
           </div>
@@ -466,7 +528,7 @@ export default function Home() {
                       photoURL={member.photoURL}
                       phone={member.phone}
                       email={member.email}
-                      profileHref={`/members/${member.uid || member.id}`}
+                      profileHref={memberProfilePath(member)}
                     />
                   ))
                   : (
